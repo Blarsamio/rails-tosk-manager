@@ -1,23 +1,39 @@
-<h1><%= @tasks.title %></h1>
+<div class="container">
+  <h1>
+      <%= @tasks.title %>
 
-<div class="details">
+      <small>
+        <%= link_to "#{@tasks.id}/edit", :method => :get, :title => "Update #{@tasks.title}" do %>
+          <i class="fas fa-pencil-alt"></i>
+        <% end %>
+      </small>
+      <small>
+        <%= link_to @tasks, :method => :delete, :title => "Delete #{@tasks.title}", data: { :confirm => "You sure?", disable_with: "Processing ..." } do %>
+          <i class="fas fa-trash"></i>
+        <% end %>
+      </small>
+    </h1>
+    <hr>
 
-  <%= @tasks.details   %><br>
+  <div class="details">
 
+    <%= @tasks.details   %><br>
+
+  </div>
+
+  <br>
+  <label>
+    <input type='checkbox' <%= @tasks.completed ? "checked":"&nbsp;" %>>
+  </label>
+  <%=
+    if @tasks.completed
+      "This task is completed"
+    else
+      "This task is not completed yet"
+    end
+    %>
+
+  <br><br><br>
+
+  <%= link_to 'Back to list', '/tasks' %> &nbsp; &nbsp; | &nbsp; &nbsp; <%= link_to 'Edit', "/tasks/#{@tasks.id}/edit" %>
 </div>
-
-<br>
-<label>
-  <input type='checkbox' <%= @tasks.completed ? "checked":"&nbsp;" %>>
-</label>
-<%=
-  if @tasks.completed
-    "This task is completed"
-  else
-    "This task is not completed yet"
-  end
-  %>
-
-<br><br><br>
-
-<%= link_to 'Back to list', '/tasks' %> &nbsp; &nbsp; | &nbsp; &nbsp; <%= link_to 'Edit', "/tasks/#{@tasks.id}/edit" %>
